@@ -4,7 +4,7 @@ An Obsidian plugin that reads emoji values from Markdown frontmatter and display
 
 ## Properties
 
-The default property names are `file_icon` and `folder_icon`; both can be changed in the plugin settings. Each value must contain 1 to 3 emoji. Spaces between emoji are allowed, but mixed text and values with more than 3 emoji are invalid:
+The default property names are `file_icon` and `folder_icon`. Each value must contain 1 to 3 emoji. Spaces between emoji are allowed, but mixed text and values with more than 3 emoji are invalid:
 
 ```yaml
 folder_icon: "🫐"
@@ -13,15 +13,43 @@ file_icon: "👟"
 
 Invalid non-empty values display as `?` with an exclamation marker and a tooltip explaining the allowed format. The frontmatter is left unchanged so you can correct the value there.
 
-`folder_icon` applies to the folder that directly contains that Markdown note. It can be set on any Markdown note in the folder; it does not need to be on `00 index.md`.
+`folder_icon` applies to the folder that directly contains the Markdown note. Any Markdown note in that folder can declare it.
 
 `file_icon` applies to the Markdown note containing the property. A note can set both properties: one icon for itself and one for its containing folder.
 
+## Settings
+
+Open **Frontmatter Icons** in Obsidian's plugin settings to configure:
+
+- **File icon property**: Frontmatter property used for note icons. Defaults to `file_icon`.
+- **Folder icon property**: Frontmatter property used for folder icons. Defaults to `folder_icon`.
+- **Folder icon search order**: Choose alphabetical (A to Z) or reverse alphabetical (Z to A) when multiple notes in a folder declare `folder_icon`.
+- **Global folder icons**: Set an icon for a vault-relative folder path. These override a `folder_icon` property and do not require a Markdown note. Add or remove entries in settings.
+- **Show conflict marker**: Show or hide the exclamation mark and tooltip when multiple icons are declared. Invalid-value warnings remain visible when conflict markers are hidden.
+
 ## Conflicts
 
-If multiple notes in a folder declare `folder_icon`, the note selected by the configured folder icon search order supplies the folder icon. The default is the existing rule: the first path in case-insensitive alphabetical order. Duplicate declarations of the same property in one note also count as a conflict; the first declaration supplies the icon.
+If multiple notes in a folder declare `folder_icon`, the configured search order determines which note supplies the folder icon. Duplicate declarations of the same property in one note also count as a conflict; the first declaration supplies the icon. Conflict markers are enabled by default.
 
-In the plugin settings, you can change the file and folder property names, configure global folder icons, select alphabetical or reverse-alphabetical folder icon order, and toggle conflict markers. Global entries use vault-relative paths and override `folder_icon` frontmatter for the same folder. Conflict markers are enabled by default. When enabled, their tooltip identifies a conflict in the folder or file; disabling this setting hides conflict markers and tooltips. Invalid-value warnings remain visible independently.
+## API and dashboards
+
+Scripts can access the plugin through `app.plugins.plugins["frontmatter-icons"]`. The API accepts vault-relative paths:
+
+- `getFileIcon(path)` returns the icon set on that note.
+- `getFolderIcon(path)` returns the icon set on that folder.
+- `getIcon(path)` returns the note icon, falling back to the nearest ancestor folder icon.
+
+Each method returns an empty string when no valid icon is available. In a DataviewJS block, use `getIcon` to show icons in a dashboard table:
+
+```dataviewjs
+const icons = app.plugins.plugins["frontmatter-icons"];
+
+dv.table(
+	["Icon", "Project"],
+	dv.pages('"Projects"')
+		.map(page => [icons?.getIcon(page.file.path) ?? "", page.file.link])
+);
+```
 
 ## Install for testing
 
