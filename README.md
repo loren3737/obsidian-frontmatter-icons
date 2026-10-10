@@ -56,11 +56,3 @@ dv.table(
 1. Copy this folder into `<vault>/.obsidian/plugins/frontmatter-icons/`.
 2. Enable **Frontmatter Icons** in Obsidian's Community plugins settings.
 3. Add `folder_icon` or `file_icon` to a Markdown note and inspect that folder or note in the File Explorer.
-
-## Limitations
-
-- Rendering observes active File Explorer views and uses Obsidian DOM selectors to find tree rows. Obsidian UI changes may require plugin updates; rendering is skipped when a File Explorer view is unavailable.
-- The plugin scans Markdown files when vault metadata changes. Test performance on larger vaults.
-- Property parsing supports simple, single-line scalar values; it is not a general YAML parser.
-- Test desktop and mobile, different themes, note/folder moves, property removal, and conflicts before submitting to the Community Plugins list.
-- For each release, verify the manifest and minimum app version, then publish a version-matched GitHub release containing `main.js`, `manifest.json`, and `styles.css`.
