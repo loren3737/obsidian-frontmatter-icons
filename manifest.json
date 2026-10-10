@@ -3,7 +3,7 @@
     "name": "Frontmatter Icons",
     "version": "0.0.1",
     "minAppVersion": "1.12.0",
-    "description": "Displays file_icon and folder_icon properties directly in Obsidian's file explorer.",
+    "description": "Displays file_icon and folder_icon properties directly in the file explorer.",
     "author": "Loren Klemesrud",
     "isDesktopOnly": false
 }
