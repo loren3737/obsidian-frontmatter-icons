@@ -1,0 +1,36 @@
+.folder-icon-property {
+    position: relative;
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.4em;
+    height: 1.4em;
+    margin-inline-end: 2px;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.folder-icon-property-glyph {
+    font-size: 1.05em;
+}
+
+.folder-icon-property-invalid .folder-icon-property-glyph {
+    font-weight: 700;
+}
+
+.folder-icon-property-conflict {
+    position: absolute;
+    top: -0.35em;
+    right: -0.25em;
+    display: inline-flex;
+    width: 0.9em;
+    height: 0.9em;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--text-error);
+    color: var(--text-on-accent);
+    font-size: 0.65em;
+    font-weight: 700;
+}
