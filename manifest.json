@@ -1,7 +1,7 @@
 {
     "id": "frontmatter-icons",
     "name": "Frontmatter Icons",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "minAppVersion": "1.12.0",
     "description": "Displays file_icon and folder_icon properties directly in the file explorer.",
     "author": "Loren Klemesrud",
